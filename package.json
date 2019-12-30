@@ -5,7 +5,9 @@
     "backend"
   ],
   "scripts": {
-    "precommit": "pretty-quick --staged"
+    "lint": "eslint **/*.{js,jsx} --ext .js",
+    "lint-fix": "eslint **/*.{js,jsx} --ext .js --fix",
+    "precommit": "npm run lint && pretty-quick --staged"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
