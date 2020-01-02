@@ -4,11 +4,11 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "babel packages --out-dir lib",
-    "build-watch": "babel packages --watch --out-dir lib",
+    "build": "babel packages --out-dir dist",
+    "build-watch": "babel packages --watch --out-dir dist",
     "lint": "./scripts/lint.sh",
     "precommit": "npm run lint && pretty-quick --staged",
-    "test": "jest packages"
+    "test": "./scripts/test.sh"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",

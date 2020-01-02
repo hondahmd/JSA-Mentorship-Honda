@@ -6,4 +6,4 @@ then
 fi
 
 ./node_modules/.bin/eslint ./packages/backend/src --ext .js ${lint_opt}
-./node_modules/.bin/eslint ./packages/frontend/src ./packages/frontend/__tests__ --ext .js ${lint_opt}
+./node_modules/.bin/eslint ./packages/frontend/src --ext .js ${lint_opt}

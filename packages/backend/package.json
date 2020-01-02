@@ -2,8 +2,10 @@
   "name": "backend",
   "version": "0.1.0",
   "scripts": {
+    "start": "node src/start.js",
     "lint": "eslint --ext .js .",
-    "lint-fix": "eslint --ext .js . --fix"
+    "lint-fix": "eslint --ext .js . --fix",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -15,5 +17,8 @@
     "jest": "^24.9.0",
     "eslint-import-resolver-babel-module": "^5.1.0",
     "eslint-plugin-import": "^2.19.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
