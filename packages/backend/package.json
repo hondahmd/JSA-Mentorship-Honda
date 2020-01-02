@@ -6,17 +6,13 @@
     "lint-fix": "eslint --ext .js . --fix"
   },
   "dependencies": {
-    "eslint-plugin-prettier": "^3.1.2",
     "express": "^4.17.1",
     "mysql": "^2.17.1"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-import": "^2.19.1",
     "jest": "^24.9.0",
-    "prettier": "^1.19.1"
+    "eslint-import-resolver-babel-module": "^5.1.0",
+    "eslint-plugin-import": "^2.19.1"
   }
 }
