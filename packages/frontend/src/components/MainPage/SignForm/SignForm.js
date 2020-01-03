@@ -1,15 +1,13 @@
 import React from 'react';
 
-import SignInForm from 'containers/SignInForm/SignInForm';
-// import SignUpForm from 'containers/SignUpForm/SignUpForm';
+import SelectForm from 'containers/SelectForm/SelectForm';
 
 import styles from './styles';
 
 const signForm = () => {
   return (
     <styles.Container>
-      <SignInForm />
-      {/* <SignUpForm /> */}
+      <SelectForm />
     </styles.Container>
   );
 };
