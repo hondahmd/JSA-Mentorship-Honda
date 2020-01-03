@@ -3,10 +3,13 @@ import { TextField, Button } from '@material-ui/core';
 
 import styles from './styles';
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const initInput = {
-    username: '',
-    password: ''
+    firstName: '',
+    lastName: '',
+    password: '',
+    confirmPassword: '',
+    email: ''
   };
   const [input, setInput] = useState(initInput);
 
@@ -26,11 +29,21 @@ const SignInForm = () => {
     <styles.Container>
       <div>
         <TextField
-          id="username"
-          label="Username"
+          id="firstName"
+          label="First Name"
           className="TextField"
           type="text"
-          value={input.username}
+          value={input.firstName}
+          onChange={e => handleInput(e)}
+        />
+      </div>
+      <div>
+        <TextField
+          id="lastName"
+          label="Last Name"
+          className="TextField"
+          type="text"
+          value={input.lastName}
           onChange={e => handleInput(e)}
         />
       </div>
@@ -45,12 +58,32 @@ const SignInForm = () => {
         />
       </div>
       <div>
+        <TextField
+          id="confirmPassword"
+          label="Confirm Password"
+          className="TextField"
+          type="password"
+          value={input.confirmPassword}
+          onChange={e => handleInput(e)}
+        />
+      </div>
+      <div>
+        <TextField
+          id="email"
+          label="Email Address"
+          className="TextField"
+          type="email"
+          value={input.email}
+          onChange={e => handleInput(e)}
+        />
+      </div>
+      <div>
         <Button variant="contained" onClick={() => handleClick()}>
-          Sign In
+          Sign Up
         </Button>
       </div>
     </styles.Container>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
