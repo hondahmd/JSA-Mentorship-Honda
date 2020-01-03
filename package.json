@@ -4,10 +4,12 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "concurrently \"cd packages/backend && npm start \" \"cd packages/frontend && npm start \" ",
     "build": "babel packages --out-dir dist",
     "build-watch": "babel packages --watch --out-dir dist",
     "lint": "./scripts/lint.sh",
-    "precommit": "npm run lint && pretty-quick --staged",
+    "prettier": "pretty-quick --staged",
+    "precommit": "npm run lint",
     "test": "./scripts/test.sh"
   },
   "devDependencies": {
