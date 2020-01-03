@@ -19,6 +19,8 @@ module.exports = {
   },
   plugins: ['react', 'prettier', 'jest'],
   rules: {
+    'indent': [1, 2],
+    'react/jsx-indent': [1, 2],
     'react/jsx-filename-extension': 0,
     'prettier/prettier': ['error']
   }
