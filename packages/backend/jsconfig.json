@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "src": ["./src"],
-      "tests": ["__tests__"]
+      "src/*": ["./src/*"],
+      "tests/*": ["./src/__tests__/*"],
+      "database/*": ["./src/database/*"]
     }
   }
 }

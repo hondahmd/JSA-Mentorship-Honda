@@ -1,8 +1,11 @@
 const path = require('path');
 
+const resolve = dir => path.join(__dirname, '.', dir);
+
 module.exports = {
   alias: {
-    src: path.resolve(__dirname, './src/'),
-    tests: path.resolve(__dirname, './__tests__')
+    src: resolve('src'),
+    tests: resolve('src/__tests__'),
+    database: resolve('src/database')
   }
 };

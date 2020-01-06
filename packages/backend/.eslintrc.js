@@ -3,7 +3,8 @@ module.exports = {
     'import/resolver': {
       'babel-module': {
         src: './src',
-        tests: './__tests__'
+        tests: './src/__tests__',
+        database: './src/database'
       }
     }
   }
