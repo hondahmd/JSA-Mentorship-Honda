@@ -5,7 +5,7 @@ import styles from './styles';
 
 const SignInForm = () => {
   const initInput = {
-    username: '',
+    email: '',
     password: ''
   };
   const [input, setInput] = useState(initInput);
@@ -26,11 +26,11 @@ const SignInForm = () => {
     <styles.Container>
       <div>
         <TextField
-          id="username"
-          label="Username"
+          id="email"
+          label="Email"
           className="TextField"
-          type="text"
-          value={input.username}
+          type="email"
+          value={input.email}
           onChange={e => handleInput(e)}
         />
       </div>
