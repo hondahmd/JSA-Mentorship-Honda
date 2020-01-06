@@ -10,5 +10,8 @@ module.exports = {
         extenstions: ['.js']
       }
     }
+  },
+  rules: {
+    "import/no-unresolved": 1
   }
 };
