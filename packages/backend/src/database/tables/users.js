@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const conn = require('../conn');
+const conn = require('database/conn');
 
 const Users = conn.define(
   'users',
