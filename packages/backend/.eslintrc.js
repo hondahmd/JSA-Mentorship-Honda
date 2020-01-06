@@ -3,9 +3,9 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
-          ['src', './src'],
-          ['tests', './src/__tests__'],
-          ['database', './src/database']
+          ['src', './packages/backend/src'],
+          ['tests', './packages/backend/src/__tests__'],
+          ['database', './packages/backend/src/database']
         ],
         extenstions: ['.js']
       }
