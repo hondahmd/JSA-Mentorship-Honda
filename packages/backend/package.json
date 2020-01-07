@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
