@@ -1,9 +1,14 @@
-const app = require('./main.js');
-const Users = require('./database/tables/users');
+const app = require('./server/main');
+const dbConn = require('./database/conn');
 
-Users.findAll().then(users => {
-  console.log('All users:', JSON.stringify(users, null, 4));
-});
+dbConn
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const PORT = 5000;
 

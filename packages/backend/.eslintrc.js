@@ -5,13 +5,13 @@ module.exports = {
         map: [
           ['src', './packages/backend/src'],
           ['tests', './packages/backend/src/__tests__'],
-          ['database', './packages/backend/src/database']
+          ['database', './packages/backend/src/database'],
+          ['server', './packages/backend/src/server'],
+          ['controllers', './packages/backend/src/server/controllers'],
+          ['routes', './packages/backend/src/server/routes']
         ],
         extenstions: ['.js']
       }
     }
-  },
-  rules: {
-    "import/no-unresolved": 1
   }
 };

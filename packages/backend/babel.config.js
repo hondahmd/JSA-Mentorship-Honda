@@ -7,7 +7,10 @@ module.exports = {
         alias: {
           src: './src',
           tests: './src/__tests__',
-          database: './src/database'
+          database: './src/database',
+          server: './src/server',
+          controllers: './src/server/controllers',
+          routes: './src/server/routes'
         }
       }
     ]
