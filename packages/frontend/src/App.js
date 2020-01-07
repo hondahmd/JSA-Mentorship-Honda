@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 
 import MainPage from './components/MainPage/MainPage';
+import DashBoard from './containers/DashBoard/DashBoard';
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
           <Route exact path="/">
             <MainPage />
           </Route>
-          {/* dashborad */}
+          <Route path="/dashboard">
+            <DashBoard />
+          </Route>
         </Switch>
       </Router>
     </div>

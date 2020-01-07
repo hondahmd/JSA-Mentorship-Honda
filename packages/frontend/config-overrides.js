@@ -10,7 +10,10 @@ module.exports = override(
     tests: resolve('src/__tests__'),
     constants: resolve('src/constants'),
     components: resolve('src/components'),
-    containers: resolve('src/containers')
+    containers: resolve('src/containers'),
+    actions: resolve('src/actions'),
+    reducers: resolve('src/reducers'),
+    thunks: resolve('src/thunks')
   }),
   (config, env) => {
     config = rewireReactHotLoader(config, env);

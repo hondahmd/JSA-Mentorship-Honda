@@ -8,7 +8,12 @@ const signRouter = require('./routes/sign');
 const app = new Koa();
 const router = new Router();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+  })
+);
 app.use(bodyParser());
 
 // routes

@@ -6,7 +6,10 @@
       "tests/*": ["src/__tests__/*"],
       "components/*": ["src/components/*"],
       "constants/*": ["src/constants/*"],
-      "containers/*": ["src/containers/*"]
+      "containers/*": ["src/containers/*"],
+      "actions/*": ["src/actions/*"],
+      "reducers/*": ["src/reducers/*"],
+      "thunks/*": ["src/thunks/*"]
     }
   }
 }

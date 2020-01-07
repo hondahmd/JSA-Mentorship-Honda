@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import thunks from 'thunks/userInfo';
 
 import styles from './styles';
 
-const SignInForm = () => {
+const SignInForm = ({ signIn }) => {
   const initInput = {
     email: '',
     password: ''
@@ -18,7 +22,7 @@ const SignInForm = () => {
   }
 
   function handleClick() {
-    console.log(input);
+    signIn(input);
     setInput(initInput);
   }
 
@@ -45,12 +49,18 @@ const SignInForm = () => {
         />
       </div>
       <div>
-        <Button variant="contained" onClick={() => handleClick()}>
-          Sign In
-        </Button>
+        <Link to="/dashboard">
+          <Button variant="contained" onClick={() => handleClick()}>
+            Sign In
+          </Button>
+        </Link>
       </div>
     </styles.Container>
   );
 };
 
-export default SignInForm;
+const mapDispatchToProps = dispatch => ({
+  signIn: userInfo => dispatch(thunks.signIn(userInfo))
+});
+
+export default connect(null, mapDispatchToProps)(SignInForm);

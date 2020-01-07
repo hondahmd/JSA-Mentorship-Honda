@@ -105,3 +105,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# keys
+keys/private.key
+keys/public.key

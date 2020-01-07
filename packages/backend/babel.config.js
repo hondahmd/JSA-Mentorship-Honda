@@ -10,7 +10,8 @@ module.exports = {
           database: './src/database',
           server: './src/server',
           controllers: './src/server/controllers',
-          routes: './src/server/routes'
+          routes: './src/server/routes',
+          keys: './keys'
         }
       }
     ]

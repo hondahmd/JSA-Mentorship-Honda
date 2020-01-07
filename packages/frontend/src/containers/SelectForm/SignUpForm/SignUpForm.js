@@ -3,6 +3,8 @@ import { TextField, Button } from '@material-ui/core';
 
 import styles from './styles';
 
+import server from 'constants/server';
+
 const SignUpForm = () => {
   const initInput = {
     firstName: '',
@@ -20,8 +22,29 @@ const SignUpForm = () => {
     setInput(newInput);
   }
 
+  async function fetchSignUp(userInfo) {
+    const response = await fetch(`http://${server.serverIp}:${server.serverPort}/sign`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    });
+    const data = await response.json();
+    if (data === 'User already existed!') {
+      alert('User already existed!');
+      setInput(initInput);
+    }
+  }
+
   function handleClick() {
-    console.log(input);
+    const data = {
+      email: input.email,
+      name: `${input.firstName} ${input.lastName}`,
+      password: input.password
+    };
+    fetchSignUp(data);
     setInput(initInput);
   }
 

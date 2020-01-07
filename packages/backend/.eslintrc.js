@@ -8,7 +8,8 @@ module.exports = {
           ['database', './packages/backend/src/database'],
           ['server', './packages/backend/src/server'],
           ['controllers', './packages/backend/src/server/controllers'],
-          ['routes', './packages/backend/src/server/routes']
+          ['routes', './packages/backend/src/server/routes'],
+          ['keys', './packages/backend/keys']
         ],
         extenstions: ['.js']
       }
