@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const dbUsers = require('database/models/users');
-const keys = require('keys/keys');
+const { privateKey } = require('keys/keys');
 
 const saltRounds = 10;
 
@@ -24,7 +24,8 @@ const dbNewUser = async ({ email, name, password }) => {
 
 const comparePwd = (hashedPassword, inputPassword) => bcrypt.compare(inputPassword, hashedPassword);
 
-const genToken = payload => jwt.sign(payload, keys.privateKey, { algorithm: 'RS256' });
+const genToken = payload =>
+  jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '15min' });
 
 module.exports = {
   dbRetrieve,

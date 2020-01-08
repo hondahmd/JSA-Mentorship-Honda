@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 
-import styles from './styles';
-
 import server from 'constants/server';
+
+import styles from './styles';
 
 const SignUpForm = () => {
   const initInput = {

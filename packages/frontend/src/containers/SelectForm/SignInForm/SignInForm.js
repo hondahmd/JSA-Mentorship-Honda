@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import thunks from 'thunks/userInfo';
 
 import styles from './styles';
 
-const SignInForm = ({ signIn }) => {
+const SignInForm = ({ signIn, history }) => {
   const initInput = {
     email: '',
     password: ''
@@ -21,9 +22,10 @@ const SignInForm = ({ signIn }) => {
     setInput(newInput);
   }
 
-  function handleClick() {
+  async function handleClick() {
     signIn(input);
     setInput(initInput);
+    history.push('/dashboard');
   }
 
   return (
@@ -49,18 +51,28 @@ const SignInForm = ({ signIn }) => {
         />
       </div>
       <div>
-        <Link to="/dashboard">
-          <Button variant="contained" onClick={() => handleClick()}>
-            Sign In
-          </Button>
-        </Link>
+        <Button variant="contained" onClick={() => handleClick()}>
+          Sign In
+        </Button>
       </div>
     </styles.Container>
   );
+};
+
+SignInForm.defaultProps = {
+  signIn: null,
+  history: {}
+};
+
+SignInForm.propTypes = {
+  signIn: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
 };
 
 const mapDispatchToProps = dispatch => ({
   signIn: userInfo => dispatch(thunks.signIn(userInfo))
 });
 
-export default connect(null, mapDispatchToProps)(SignInForm);
+export default connect(null, mapDispatchToProps)(withRouter(SignInForm));
