@@ -7,6 +7,7 @@ const signIn = userInfo => {
       `http://${server.serverIp}:${server.serverPort}/sign?email=${userInfo.email}&password=${userInfo.password}`
     );
     const data = await response.json();
+    document.cookie = `token=${data.token}`;
     dispatch(actions.signIn(userInfo, data.token));
   };
 };

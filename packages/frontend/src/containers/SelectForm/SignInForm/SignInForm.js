@@ -13,18 +13,19 @@ const SignInForm = ({ signIn, history }) => {
     email: '',
     password: ''
   };
-  const [input, setInput] = useState(initInput);
+  const [state, setState] = useState({ filled: true, input: initInput });
 
   function handleInput(event) {
     const { id, value } = event.target;
-    const newInput = { ...input };
-    newInput[id] = value;
-    setInput(newInput);
+    const newState = { ...state };
+    newState.input[id] = value;
+    if (state.input.email !== '' && state.input.password !== '') newState.filled = false;
+    setState(newState);
   }
 
   async function handleClick() {
-    signIn(input);
-    setInput(initInput);
+    signIn(state.input);
+    setState({ filled: true, input: initInput });
     history.push('/dashboard');
   }
 
@@ -36,7 +37,7 @@ const SignInForm = ({ signIn, history }) => {
           label="Email"
           className="TextField"
           type="email"
-          value={input.email}
+          value={state.input.email}
           onChange={e => handleInput(e)}
         />
       </div>
@@ -46,12 +47,12 @@ const SignInForm = ({ signIn, history }) => {
           label="Password"
           className="TextField"
           type="password"
-          value={input.password}
+          value={state.input.password}
           onChange={e => handleInput(e)}
         />
       </div>
       <div>
-        <Button variant="contained" onClick={() => handleClick()}>
+        <Button variant="contained" disabled={state.filled} onClick={() => handleClick()}>
           Sign In
         </Button>
       </div>

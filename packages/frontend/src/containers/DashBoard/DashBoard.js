@@ -10,9 +10,10 @@ const DashBoard = userInfo => {
   const [fetchData, setFetchData] = useState(defaultFetch);
 
   async function handleClick() {
+    const cookieToken = document.cookie.split('=')[1];
     const response = await fetch(`http://${server.serverIp}:${server.serverPort}/dashboard`, {
       headers: {
-        Authorization: `Bearer ${userInfo.userInfo.token}`
+        Authorization: `Bearer ${cookieToken}`
       }
     });
     const data = await response.json();
