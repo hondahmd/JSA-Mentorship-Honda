@@ -10,11 +10,11 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <MainPage />
-          </Route>
           <Route path="/dashboard">
             <DashBoard />
+          </Route>
+          <Route path="/">
+            <MainPage />
           </Route>
         </Switch>
       </Router>

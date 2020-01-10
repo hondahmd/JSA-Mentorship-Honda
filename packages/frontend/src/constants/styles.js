@@ -1,5 +1,6 @@
 const primaryColor = '118, 205, 216'; // epam blue
-const secondaryColor = '204, 204, 204'; // light gray
+const secondaryColor = '211, 93, 71'; // lime green
+const lightGrey = '204, 204, 204'; // light gray
 
 const defaultAlignCenter = `
 width: 100%;
@@ -10,7 +11,6 @@ justify-content: center;
 align-items:center;`;
 
 const defaultTextInput = `
-  margin-bottom: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -20,6 +20,7 @@ const defaultTextInput = `
 export default {
   primaryColor,
   secondaryColor,
+  lightGrey,
   defaultAlignCenter,
   defaultTextInput
 };

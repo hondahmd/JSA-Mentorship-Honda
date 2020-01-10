@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import thunks from 'thunks/userInfo';
 
 import styles from './styles';
@@ -31,7 +32,7 @@ const SignInForm = ({ signIn, history }) => {
 
   return (
     <styles.Container>
-      <div>
+      <div className="inputContainer">
         <TextField
           id="email"
           label="Email"
@@ -41,7 +42,7 @@ const SignInForm = ({ signIn, history }) => {
           onChange={e => handleInput(e)}
         />
       </div>
-      <div>
+      <div className="inputContainer">
         <TextField
           id="password"
           label="Password"
@@ -51,10 +52,23 @@ const SignInForm = ({ signIn, history }) => {
           onChange={e => handleInput(e)}
         />
       </div>
-      <div>
-        <Button variant="contained" disabled={state.filled} onClick={() => handleClick()}>
+      <div className="signInButton">
+        <Button
+          variant="contained"
+          className="button"
+          disabled={state.filled}
+          onClick={() => handleClick()}
+        >
           Sign In
         </Button>
+      </div>
+      <SplitLine />
+      <div className="buttonContainer">
+        <Link to="/signup">
+          <Button variant="contained" className="button">
+            Sign Up
+          </Button>
+        </Link>
       </div>
     </styles.Container>
   );
