@@ -13,7 +13,13 @@ module.exports = {
       }
     }
   },
+  plugins: [
+    "react-hooks"
+  ],
   rules: {
-    'import/no-extraneous-dependencies': 1
+    'import/no-extraneous-dependencies': 1,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-shadow": "warn"
   }
 };

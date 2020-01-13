@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Switch, Route } from 'react-router-dom';
 
-import SignInForm from 'containers/SelectForm/SignInForm/SignInForm';
+import SignInForm from 'containers/Forms/SignInForm/SignInForm';
 import SignUpForm from 'containers/SelectForm/SignUpForm/SignUpForm';
 
 import styles from './styles';

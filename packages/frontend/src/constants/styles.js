@@ -11,7 +11,7 @@ flex-direction: column;
 justify-content: center;
 align-items:center;`;
 
-const defaultTextInput = `
+const defaultInputBlock = `
   width: 100%;
   display: flex;
   justify-content: center;
@@ -24,5 +24,5 @@ export default {
   lightGrey,
   coral,
   defaultAlignCenter,
-  defaultTextInput
+  defaultInputBlock
 };
