@@ -5,10 +5,18 @@ import PropTypes from 'prop-types';
 
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import server from 'constants/server';
+import fieldsCheck from 'containers/SelectForm/fieldsCheck';
 
 import styles from './styles';
 
 const SignUpForm = ({ history }) => {
+  const fieldAttrs = [
+    { id: 'firstName', label: 'First Name', type: 'text' },
+    { id: 'lastName', label: 'Last Name', type: 'text' },
+    { id: 'password', label: 'Password', type: 'password' },
+    { id: 'confirmPassword', label: 'Confirm Password', type: 'password' },
+    { id: 'email', label: 'Email Address', type: 'email' }
+  ];
   const initInput = {
     firstName: '',
     lastName: '',
@@ -16,14 +24,7 @@ const SignUpForm = ({ history }) => {
     confirmPassword: '',
     email: ''
   };
-  const [state, setState] = useState({ process: 0, input: initInput });
-
-  function handleInput(event) {
-    const { id, value } = event.target;
-    const newInput = { ...state.input };
-    newInput[id] = value;
-    setState({ ...state, input: newInput });
-  }
+  const [state, setState] = useState({ process: 0, filled: false, input: initInput });
 
   async function fetchSignUp(userInfo) {
     const response = await fetch(`http://${server.serverIp}:${server.serverPort}/sign`, {
@@ -43,6 +44,21 @@ const SignUpForm = ({ history }) => {
     }
   }
 
+  const checkInput = () =>
+    fieldsCheck.name(state.input.firstName) &&
+    fieldsCheck.name(state.input.lastName) &&
+    fieldsCheck.email(state.input.email) &&
+    fieldsCheck.basic(state.input.password) &&
+    fieldsCheck.basic(state.input.confirmPassword) &&
+    state.input.password === state.input.confirmPassword;
+
+  function handleInput(event) {
+    const { id, value } = event.target;
+    const newInput = { ...state.input };
+    newInput[id] = value;
+    setState({ ...state, filled: checkInput(), input: newInput });
+  }
+
   function handleClick() {
     setState({ ...state, process: 1 });
     const data = {
@@ -50,9 +66,7 @@ const SignUpForm = ({ history }) => {
       name: `${state.input.firstName} ${state.input.lastName}`,
       password: state.input.password
     };
-    setTimeout(() => {
-      fetchSignUp(data);
-    }, 1000);
+    fetchSignUp(data);
   }
 
   function signProcess() {
@@ -70,63 +84,29 @@ const SignUpForm = ({ history }) => {
     return content;
   }
 
+  function genTextField(attrs) {
+    return (
+      <div className="inputContainer" key={`sign in ${attrs.id}`}>
+        <TextField
+          id={attrs.id}
+          label={attrs.label}
+          className="TextField"
+          type={attrs.type}
+          onChange={e => handleInput(e)}
+        />
+      </div>
+    );
+  }
+
   return (
     <styles.Container>
-      <div className="inputContainer">
-        <TextField
-          id="firstName"
-          label="First Name"
-          className="TextField"
-          type="text"
-          value={state.input.firstName}
-          onChange={e => handleInput(e)}
-        />
-      </div>
-      <div className="inputContainer">
-        <TextField
-          id="lastName"
-          label="Last Name"
-          className="TextField"
-          type="text"
-          value={state.input.lastName}
-          onChange={e => handleInput(e)}
-        />
-      </div>
-      <div className="inputContainer">
-        <TextField
-          id="password"
-          label="Password"
-          className="TextField"
-          type="password"
-          value={state.input.password}
-          onChange={e => handleInput(e)}
-        />
-      </div>
-      <div className="inputContainer">
-        <TextField
-          id="confirmPassword"
-          label="Confirm Password"
-          className="TextField"
-          type="password"
-          value={state.input.confirmPassword}
-          onChange={e => handleInput(e)}
-        />
-      </div>
-      <div className="inputContainer">
-        <TextField
-          id="email"
-          label="Email Address"
-          className="TextField"
-          type="email"
-          value={state.input.email}
-          onChange={e => handleInput(e)}
-        />
-      </div>
+      {fieldAttrs.map(field => genTextField(field))}
       <div>
         <Button
           variant="contained"
           className={`signUpButton button ${state.process === 2 ? 'successButton' : ''}`}
           onClick={() => handleClick()}
+          disabled={!state.filled}
         >
           {signProcess()}
         </Button>

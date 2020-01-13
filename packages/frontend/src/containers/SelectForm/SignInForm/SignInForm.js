@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import thunks from 'thunks/userInfo';
+import fieldsCheck from 'containers/SelectForm/fieldsCheck';
 
 import styles from './styles';
 
@@ -16,11 +17,14 @@ const SignInForm = ({ signIn, history }) => {
   };
   const [state, setState] = useState({ filled: true, input: initInput });
 
+  const checkInput = () =>
+    fieldsCheck.email(state.input.email) && fieldsCheck.basic(state.input.password);
+
   function handleInput(event) {
     const { id, value } = event.target;
     const newState = { ...state };
     newState.input[id] = value;
-    if (state.input.email !== '' && state.input.password !== '') newState.filled = false;
+    newState.filled = !checkInput();
     setState(newState);
   }
 
