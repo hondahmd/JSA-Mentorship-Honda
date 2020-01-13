@@ -16,9 +16,18 @@ const SignInForm = ({ signIn, history }) => {
     password: ''
   };
   const [state, setState] = useState({ filled: true, input: initInput });
+  const [checks, setChecks] = useState({
+    email: { show: false, correct: false },
+    password: { show: false, correct: false }
+  });
 
-  const checkInput = () =>
-    fieldsCheck.email(state.input.email) && fieldsCheck.basic(state.input.password);
+  const checkInput = () => {
+    setChecks({
+      email: { ...checks.email, correct: fieldsCheck.email(state.input.email) },
+      password: { ...checks.password, correct: fieldsCheck.basic(state.input.password) }
+    });
+    return checks.email.correct && checks.password.correct;
+  };
 
   function handleInput(event) {
     const { id, value } = event.target;
@@ -44,7 +53,16 @@ const SignInForm = ({ signIn, history }) => {
           type="email"
           value={state.input.email}
           onChange={e => handleInput(e)}
+          onFocus={() => setChecks({ ...checks, email: { ...checks.email, show: true } })}
         />
+        <div className="alertLine">
+          <p
+            hidden={!checks.email.show}
+            className={`alertContent ${checks.email.correct ? 'alertCorrect' : 'alertError'}`}
+          >
+            {checks.email.correct ? 'Correct' : 'Invalid email address'}
+          </p>
+        </div>
       </div>
       <div className="inputContainer">
         <TextField
