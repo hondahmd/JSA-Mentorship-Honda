@@ -9,10 +9,10 @@ const Container = styled.div`
     text-decoration: none;
   }
 
-  .signInButton {
-    margin-top: 20px;
+  .signUpButton {
     width: 100px;
     height: 40px;
+    margin-top: 20px;
   }
 
   .successButton {

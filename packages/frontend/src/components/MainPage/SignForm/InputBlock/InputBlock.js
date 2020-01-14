@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import { SignInFormDispatch } from 'src/containers/Forms/SignInForm/dataCarrier';
 import AlertLine from './AlertLine/AlertLine';
 
 import Container from './styles';
 
-const InputBlock = ({ id, label, type, content, show, status }) => {
-  const dispatch = useContext(SignInFormDispatch);
+const InputBlock = ({ attrs, state, dispatch }) => {
+  const { id, label, type, alerts } = attrs;
 
   return (
     <Container>
@@ -17,29 +16,50 @@ const InputBlock = ({ id, label, type, content, show, status }) => {
         label={label}
         type={type}
         className="TextField"
-        onChange={e => {
-          return dispatch({ type: 'TEXT_INPUT', payload: { changeId: id, input: e.target.value } });
-        }}
+        onChange={e =>
+          dispatch({ type: 'TEXT_INPUT', payload: { changeId: id, input: e.target.value } })
+        }
         onFocus={() => dispatch({ type: 'TEXT_FOCUS', payload: { focusId: id } })}
       />
-      <AlertLine content={content} show={show} status={status} />
+      <AlertLine
+        content={state[id].status ? alerts.correct : alerts.error}
+        show={state[id].show}
+        status={state[id].status}
+      />
     </Container>
   );
 };
 
 InputBlock.defaultProps = {
-  content: '',
-  show: false,
-  status: false
+  attrs: {
+    id: '',
+    label: '',
+    type: 'text',
+    alerts: {
+      correct: '',
+      alert: ''
+    }
+  },
+  state: {},
+  dispatch: null
 };
 
 InputBlock.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  content: PropTypes.string,
-  show: PropTypes.bool,
-  status: PropTypes.bool
+  attrs: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    alerts: PropTypes.shape({
+      correct: PropTypes.string,
+      error: PropTypes.string
+    })
+  }),
+  state: PropTypes.shape({
+    input: PropTypes.string,
+    show: PropTypes.bool,
+    status: PropTypes.bool
+  }),
+  dispatch: PropTypes.func
 };
 
 export default InputBlock;

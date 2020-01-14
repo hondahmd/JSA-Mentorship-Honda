@@ -5,7 +5,7 @@ import common from 'constants/styles';
 const Container = styled.div`
   background-color: rgb(${common.primaryColor});
   width: 375px;
-  height: 550px;
+  height: 650px;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 `;

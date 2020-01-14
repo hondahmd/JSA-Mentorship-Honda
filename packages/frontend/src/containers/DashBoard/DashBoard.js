@@ -24,7 +24,7 @@ const DashBoard = userInfo => {
     <div>
       <div>{userInfo.userInfo.userInfo !== undefined && userInfo.userInfo.userInfo.email}</div>
       <Link to="/">
-        <Button variant="contained">Back</Button>
+        <Button variant="contained">Log Out</Button>
       </Link>
       <Button variant="contained" onClick={() => handleClick()}>
         Request

@@ -1,78 +1,84 @@
 import React, { useReducer } from 'react';
 import { Button, CircularProgress } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import server from 'constants/server';
 import InputBlock from 'components/MainPage/SignForm/InputBlock/InputBlock';
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import JumpButton from 'components/MainPage/SignForm/JumpButton/JumpButton';
-import thunks from 'thunks/userInfo';
-import { SignInFormDispatch, reducer, initState, fields } from './dataCarrier';
+import { SignUpFormStore, reducer, initState, fields } from './dataCarrier';
 
 import Container from './styles';
 
-const SignInForm = ({ history, signIn }) => {
+const SignUpForm = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   async function handleClick() {
-    dispatch({ type: 'START_FETCHING' });
-    await signIn({
+    const userInfo = {
       email: state.fields.email.input,
+      name: `${state.fields.firstName.input} ${state.fields.lastName.input}`,
       password: state.fields.password.input
+    };
+    dispatch({ type: 'START_FETCHING' });
+    const response = await fetch(`http://${server.serverIp}:${server.serverPort}/sign`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
     });
-    setTimeout(() => {
-      dispatch({ type: 'FINISH_FETCHING' });
+    const data = await response.json();
+    if (data === 'User already existed!') {
+      alert(data);
+      dispatch({ type: 'SIGNUP_INIT' });
+    } else if (data === 'Sign up success!') {
+      dispatch({ type: 'SIGNUP_SUCCESS' });
       setTimeout(() => {
-        history.push('/dashboard');
+        history.push('/');
       }, 1000);
-    }, 1000);
+    }
   }
 
   function buttonContent() {
     const pairs = {
-      0: 'Sign In',
+      0: 'Sign Up',
       1: <CircularProgress size={24} className="circle" />,
       2: 'Success'
     };
-    return pairs[state.fetchStatus];
+    return pairs[state.signUpStatus];
   }
 
   return (
-    <SignInFormDispatch.Provider value={{ signInState: state.fields, signInDispatch: dispatch }}>
+    <SignUpFormStore.Provider value={{ signUpState: state.fields, signUpDispatch: dispatch }}>
       <Container>
         {fields.map(field => (
           <InputBlock key={field.id} attrs={field} state={state.fields} dispatch={dispatch} />
         ))}
         <Button
           variant="contained"
-          className={`signInButton ${state.fetchStatus === 2 ? 'successButton' : ''}`}
+          className={`signUpButton ${state.signUpStatus === 2 ? 'successButton' : ''}`}
           disabled={!state.isReady}
           onClick={() => handleClick()}
         >
           {buttonContent()}
         </Button>
         <SplitLine />
-        <JumpButton path="/signup" content="Sign Up" />
+        <JumpButton to="/" content="Sign In" />
       </Container>
-    </SignInFormDispatch.Provider>
+    </SignUpFormStore.Provider>
   );
 };
 
-SignInForm.defaultProps = {
-  signIn: null,
+SignUpForm.defaultProps = {
   history: {}
 };
 
-SignInForm.propTypes = {
-  signIn: PropTypes.func,
+SignUpForm.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   })
 };
 
-const mapDispatchToProps = dispatch => ({
-  signIn: userInfo => dispatch(thunks.signIn(userInfo))
-});
-
-export default connect(null, mapDispatchToProps)(withRouter(SignInForm));
+export default withRouter(SignUpForm);

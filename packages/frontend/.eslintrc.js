@@ -20,6 +20,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 1,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "no-shadow": "warn"
+    "no-shadow": "warn",
+    "react/jsx-curly-newline": "warn"
   }
 };
