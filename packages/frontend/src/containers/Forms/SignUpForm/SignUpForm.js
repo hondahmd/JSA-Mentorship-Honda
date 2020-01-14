@@ -7,11 +7,24 @@ import server from 'constants/server';
 import InputBlock from 'components/MainPage/SignForm/InputBlock/InputBlock';
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import JumpButton from 'components/MainPage/SignForm/JumpButton/JumpButton';
-import { SignUpFormStore, reducer, initState, fields } from './dataCarrier';
+import actionPairs from 'containers/Forms/commonReducer';
+import fieldsCheck from 'constants/fieldsCheck';
+import { initState, fields } from './staticData';
 
 import Container from './styles';
 
 const SignUpForm = ({ history }) => {
+  const signUpPairs = actionPairs({
+    firstName: fieldsCheck.name,
+    lastName: fieldsCheck.name,
+    password: fieldsCheck.basic,
+    confirmPassword: (confirm, conState) => confirm === conState.fields.password.input,
+    email: fieldsCheck.email
+  });
+  const reducer = (state, action) => {
+    if (action.type in signUpPairs) return signUpPairs[action.type](state, action);
+    return state;
+  };
   const [state, dispatch] = useReducer(reducer, initState);
 
   async function handleClick() {
@@ -47,27 +60,25 @@ const SignUpForm = ({ history }) => {
       1: <CircularProgress size={24} className="circle" />,
       2: 'Success'
     };
-    return pairs[state.signUpStatus];
+    return pairs[state.fetchStatus];
   }
 
   return (
-    <SignUpFormStore.Provider value={{ signUpState: state.fields, signUpDispatch: dispatch }}>
-      <Container>
-        {fields.map(field => (
-          <InputBlock key={field.id} attrs={field} state={state.fields} dispatch={dispatch} />
-        ))}
-        <Button
-          variant="contained"
-          className={`signUpButton ${state.signUpStatus === 2 ? 'successButton' : ''}`}
-          disabled={!state.isReady}
-          onClick={() => handleClick()}
-        >
-          {buttonContent()}
-        </Button>
-        <SplitLine />
-        <JumpButton to="/" content="Sign In" />
-      </Container>
-    </SignUpFormStore.Provider>
+    <Container>
+      {fields.map(field => (
+        <InputBlock key={field.id} attrs={field} state={state.fields} dispatch={dispatch} />
+      ))}
+      <Button
+        variant="contained"
+        className={`signUpButton ${state.fetchStatus === 2 ? 'successButton' : ''}`}
+        disabled={!state.isReady}
+        onClick={() => handleClick()}
+      >
+        {buttonContent()}
+      </Button>
+      <SplitLine />
+      <JumpButton to="/" content="Sign In" />
+    </Container>
   );
 };
 
