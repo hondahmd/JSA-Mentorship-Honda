@@ -8,6 +8,12 @@ const Container = styled.div`
   a {
     text-decoration: none;
   }
+
+  .signInButton {
+    margin-top: 20px;
+    width: 100px;
+    height: 40px;
+  }
 `;
 
 export default Container;

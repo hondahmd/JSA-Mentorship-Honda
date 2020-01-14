@@ -10,8 +10,19 @@ const email = input =>
 
 const name = input => regCheck(/^[a-zA-Z]+$/, input);
 
+const checkReady = fields => {
+  let result = true;
+  Object.keys(fields).forEach(field => {
+    if (!fields[field].status) {
+      result = false;
+    }
+  });
+  return result;
+};
+
 export default {
   basic,
   email,
-  name
+  name,
+  checkReady
 };

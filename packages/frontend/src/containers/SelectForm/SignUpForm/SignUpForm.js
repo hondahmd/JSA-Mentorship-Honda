@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import server from 'constants/server';
-import fieldsCheck from 'containers/SelectForm/fieldsCheck';
+import fieldsCheck from 'constants/fieldsCheck';
 
 import styles from './styles';
 

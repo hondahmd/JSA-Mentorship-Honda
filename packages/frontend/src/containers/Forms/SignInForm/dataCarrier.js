@@ -23,8 +23,12 @@ export const fields = [
 
 // initialize state
 export const initState = {
-  email: { input: '', show: false, status: false },
-  password: { input: '', show: false, status: false }
+  fields: {
+    email: { input: '', show: false, status: false },
+    password: { input: '', show: false, status: false }
+  },
+  isReady: false,
+  fetchStatus: 0
 };
 
 // reducer cases
@@ -32,20 +36,20 @@ const actionPairs = {
   TEXT_FOCUS: (state, action) => {
     const { focusId } = action.payload;
     const newState = { ...state };
-    newState[focusId].show = true;
+    newState.fields[focusId].show = true;
     return newState;
   },
   TEXT_INPUT: (state, action) => {
     const { changeId, input } = action.payload;
-    const pairs = {
-      email: { ...state, email: { ...state.email, input, status: fieldsCheck.email(input) } },
-      password: {
-        ...state,
-        password: { ...state.password, input, status: fieldsCheck.basic(input) }
-      }
-    };
-    return pairs[changeId];
-  }
+    const newState = { ...state };
+    const checkPairs = { email: fieldsCheck.email, password: fieldsCheck.basic };
+    newState.fields[changeId].input = input;
+    newState.fields[changeId].status = checkPairs[changeId](input);
+    newState.isReady = fieldsCheck.checkReady(newState.fields);
+    return newState;
+  },
+  START_FETCHING: state => ({ ...state, fetchStatus: 1 }),
+  FINISH_FETCHING: state => ({ ...state, fetchStatus: 2 })
 };
 export const reducer = (state, action) => {
   if (action.type in actionPairs) return actionPairs[action.type](state, action);
