@@ -7,18 +7,20 @@ import PropTypes from 'prop-types';
 import InputBlock from 'components/MainPage/SignForm/InputBlock/InputBlock';
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import JumpButton from 'components/MainPage/SignForm/JumpButton/JumpButton';
-import actionPairs from 'containers/Forms/commonReducer';
 import thunks from 'thunks/userInfo';
 import fieldsCheck from 'constants/fieldsCheck';
-import { initState, fields } from './staticData';
+import reducer from './reducer';
+import fields from './staticData';
 
 import Container from './styles';
 
 const SignInForm = ({ history, signIn }) => {
-  const signInPairs = actionPairs({ email: fieldsCheck.email, password: fieldsCheck.basic });
-  const reducer = (state, action) => {
-    if (action.type in signInPairs) return signInPairs[action.type](state, action);
-    return state;
+  const initState = {
+    fields: {
+      email: { input: '', show: false, status: false },
+      password: { input: '', show: false, status: false }
+    },
+    fetchStatus: 0
   };
   const [state, dispatch] = useReducer(reducer, initState);
 
@@ -31,6 +33,7 @@ const SignInForm = ({ history, signIn }) => {
     setTimeout(() => {
       dispatch({ type: 'SIGNIN_SUCCESS' });
       setTimeout(() => {
+        dispatch({ type: 'CLEAR_STATE' });
         history.push('/dashboard');
       }, 1000);
     }, 1000);
@@ -53,7 +56,7 @@ const SignInForm = ({ history, signIn }) => {
       <Button
         variant="contained"
         className={`signInButton ${state.fetchStatus === 2 ? 'successButton' : ''}`}
-        disabled={!state.isReady}
+        disabled={!fieldsCheck.checkReady(state.fields)}
         onClick={() => handleClick()}
       >
         {buttonContent()}

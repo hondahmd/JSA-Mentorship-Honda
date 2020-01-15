@@ -7,24 +7,13 @@ import server from 'constants/server';
 import InputBlock from 'components/MainPage/SignForm/InputBlock/InputBlock';
 import SplitLine from 'components/MainPage/SignForm/SplitLine/SplitLine';
 import JumpButton from 'components/MainPage/SignForm/JumpButton/JumpButton';
-import actionPairs from 'containers/Forms/commonReducer';
 import fieldsCheck from 'constants/fieldsCheck';
+import reducer from './reducer';
 import { initState, fields } from './staticData';
 
 import Container from './styles';
 
 const SignUpForm = ({ history }) => {
-  const signUpPairs = actionPairs({
-    firstName: fieldsCheck.name,
-    lastName: fieldsCheck.name,
-    password: fieldsCheck.basic,
-    confirmPassword: (confirm, conState) => confirm === conState.fields.password.input,
-    email: fieldsCheck.email
-  });
-  const reducer = (state, action) => {
-    if (action.type in signUpPairs) return signUpPairs[action.type](state, action);
-    return state;
-  };
   const [state, dispatch] = useReducer(reducer, initState);
 
   async function handleClick() {
@@ -71,7 +60,7 @@ const SignUpForm = ({ history }) => {
       <Button
         variant="contained"
         className={`signUpButton ${state.fetchStatus === 2 ? 'successButton' : ''}`}
-        disabled={!state.isReady}
+        disabled={!fieldsCheck.checkReady(state.fields)}
         onClick={() => handleClick()}
       >
         {buttonContent()}

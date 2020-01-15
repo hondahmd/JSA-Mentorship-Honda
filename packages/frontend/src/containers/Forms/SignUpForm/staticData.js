@@ -40,6 +40,5 @@ export const initState = {
     confirmPassword: { input: '', show: false, status: false },
     email: { input: '', show: false, status: false }
   },
-  isReady: false,
   fetchStatus: 0
 };

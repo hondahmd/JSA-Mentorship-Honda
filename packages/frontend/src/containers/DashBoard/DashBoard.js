@@ -47,14 +47,14 @@ DashBoard.defaultProps = {
 
 DashBoard.propTypes = {
   userInfo: PropTypes.shape({
-    userInfo: {
+    userInfo: PropTypes.shape({
       userInfo: PropTypes.string,
       email: PropTypes.string
-    }
+    })
   }),
-  history: {
+  history: PropTypes.shape({
     push: PropTypes.func
-  }
+  })
 };
 
 const mapStateToProps = ({ userInfo }) => ({
